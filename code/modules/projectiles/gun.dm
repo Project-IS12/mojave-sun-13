@@ -78,8 +78,8 @@
 	var/ammo_y_offset = 0
 	var/flight_x_offset = 0
 	var/flight_y_offset = 0
-
 	var/pb_knockback = 0
+	var/disp_buildup = 1.5
 
 /obj/item/gun/Initialize(mapload)
 	. = ..()
@@ -364,8 +364,9 @@
 		bonus_spread += 35
 		base_bonus_spread += 10
 
-	if(spread)
-		randomized_gun_spread =	rand(0,spread)
+	//if(spread)
+	//	randomized_gun_spread =	rand(0,spread)
+	randomized_gun_spread = (user.recoil * 1.5) //Spread that sheesh out a little.
 	var/randomized_bonus_spread = rand(base_bonus_spread, bonus_spread)
 
 	var/modified_delay = fire_delay
@@ -405,6 +406,23 @@
 
 	if(user)
 		user.update_inv_hands()
+		user.recoil += disp_buildup - 1 //So you can click pretty quick for a bit before it starts getting innacurate.
+		if(user.recoil <= 0)
+			user.recoil = 0
+		user.dispersion_mouse_display_number = abs(sprd)
+		to_chat(world, "[user.dispersion_mouse_display_number]") //Debug.
+		if(user.client)
+			if(user.dispersion_mouse_display_number < 4)
+				user.client.mouse_override_icon = 'mojave/icons/effects/mouse_pointers/weapon_pointer.dmi'
+			else if(user.dispersion_mouse_display_number >= 4 && user.dispersion_mouse_display_number < 8)
+				user.client.mouse_override_icon = 'mojave/icons/effects/mouse_pointers/weapon_pointer_auto.dmi'
+			else if(user.dispersion_mouse_display_number >= 8 && user.dispersion_mouse_display_number < 10)
+				user.client.mouse_override_icon = 'mojave/icons/effects/mouse_pointers/weapon_pointer_auto.dmi'
+			else if(user.dispersion_mouse_display_number >= 10)
+				user.client.mouse_override_icon = 'mojave/icons/effects/mouse_pointers/weapon_pointer_fuck.dmi'
+			else
+				user.client.mouse_override_icon = 'mojave/icons/effects/mouse_pointers/weapon_pointer.dmi'
+			user.client.mouse_pointer_icon = user.client.mouse_override_icon
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
 
 	return TRUE
@@ -536,6 +554,16 @@
 		return clear_bayonet()
 	else if(item_to_remove == gun_light)
 		return clear_gunlight()
+/obj/item/gun/equipped(mob/user, slot)
+	. = ..()
+	if(slot == ITEM_SLOT_HANDS)
+		if(user.client)
+			user.client.mouse_override_icon = 'mojave/icons/effects/mouse_pointers/weapon_pointer.dmi'
+			user.client.mouse_pointer_icon = user.client.mouse_override_icon
+
+/mob/living/carbon/human/swap_hand()
+	..()
+	update_aim_icon()
 
 /obj/item/gun/proc/clear_bayonet()
 	if(!bayonet)

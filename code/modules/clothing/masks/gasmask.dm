@@ -81,7 +81,7 @@
 /// Initializes the FoV component for the gas mask
 /obj/item/clothing/mask/gas/proc/init_fov()
 	if (has_fov)
-		AddComponent(/datum/component/clothing_fov_visor, FOV_90_DEGREES)
+		AddComponent(/datum/component/clothing_fov_visor, FOV_120_DEGREES)
 
 /**
  * Getter for overall filter durability, takes into consideration all filters filter_status

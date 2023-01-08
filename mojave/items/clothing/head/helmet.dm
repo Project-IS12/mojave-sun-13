@@ -14,7 +14,7 @@
 	equip_delay_self = 1 SECONDS
 	equip_delay_other = 2 SECONDS
 	var/has_fov = FALSE //Whether this has a grim dark FOV or not
-	var/fov_angle = 60 //What kind of FOV type it has. This should either be 60, 90, 120, or 180
+	var/fov_angle = FOV_120_DEGREES //What kind of FOV type it has. This should either be 60, 90, 120, or 180
 
 /obj/item/clothing/head/helmet/ms13/Initialize()
 	. = ..()
@@ -41,7 +41,7 @@
 	equip_delay_self = 1 SECONDS
 	equip_delay_other = 2 SECONDS
 	var/has_fov = FALSE //Whether this has a grim dark FOV or not
-	var/fov_angle = 60 //What kind of FOV type it has. This should either be 60, 90, 120, or 180
+	var/fov_angle = FOV_120_DEGREES //What kind of FOV type it has. This should either be 60, 90, 120, or 180
 
 
 /obj/item/clothing/head/ms13/hood/Initialize()

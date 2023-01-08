@@ -8,7 +8,7 @@
 	var/turf/target_loc //For dealing with locking on targets due to BYOND engine limitations (the mouse input only happening when mouse moves).
 	var/autofire_stat = AUTOFIRE_STAT_IDLE
 	var/mouse_parameters
-	var/autofire_shot_delay = 0.3 SECONDS //Time between individual shots.
+	var/autofire_shot_delay = 3 //Time between individual shots.
 	var/mouse_status = AUTOFIRE_MOUSEUP //This seems hacky but there can be two MouseDown() without a MouseUp() in between if the user holds click and uses alt+tab, printscreen or similar.
 
 	COOLDOWN_DECLARE(next_shot_cd)
@@ -147,8 +147,8 @@
 		return
 	autofire_stat = AUTOFIRE_STAT_FIRING
 
-	clicker.mouse_override_icon = 'icons/effects/mouse_pointers/weapon_pointer.dmi'
-	clicker.mouse_pointer_icon = clicker.mouse_override_icon
+	//clicker.mouse_override_icon = 'icons/effects/mouse_pointers/weapon_pointer.dmi'
+	//clicker.mouse_pointer_icon = clicker.mouse_override_icon
 
 	if(mouse_status == AUTOFIRE_MOUSEUP) //See mouse_status definition for the reason for this.
 		RegisterSignal(clicker, COMSIG_CLIENT_MOUSEUP, .proc/on_mouse_up)
@@ -187,8 +187,8 @@
 	STOP_PROCESSING(SSprojectiles, src)
 	autofire_stat = AUTOFIRE_STAT_ALERT
 	if(clicker)
-		clicker.mouse_override_icon = null
-		clicker.mouse_pointer_icon = clicker.mouse_override_icon
+		//clicker.mouse_override_icon = null
+		//clicker.mouse_pointer_icon = clicker.mouse_override_icon
 		UnregisterSignal(clicker, COMSIG_CLIENT_MOUSEDRAG)
 	if(!QDELETED(shooter))
 		UnregisterSignal(shooter, COMSIG_MOB_SWAP_HANDS)

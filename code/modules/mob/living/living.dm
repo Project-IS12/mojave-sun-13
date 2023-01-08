@@ -608,6 +608,8 @@
 
 /// Change the [body_position] to [LYING_DOWN] and update associated behavior.
 /mob/living/proc/set_lying_down(new_lying_angle)
+	if(body_position != LYING_DOWN)
+		playsound(src, "bodyfall", 50) //Play the sound for falling over.
 	set_body_position(LYING_DOWN)
 
 /// Proc to append behavior related to lying down.

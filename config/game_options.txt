@@ -473,4 +473,4 @@ MAXFINE 2000
 #SDQL_SPELLS
 
 ## Whether native FoV is enabled for all people.
-#NATIVE_FOV
+NATIVE_FOV

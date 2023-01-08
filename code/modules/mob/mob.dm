@@ -1128,8 +1128,8 @@
 	if(!client)
 		return
 	client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
-	if(examine_cursor_icon && client.keys_held["Shift"]) //mouse shit is hardcoded, make this non hard-coded once we make mouse modifiers bindable
-		client.mouse_pointer_icon = examine_cursor_icon
+	//if(examine_cursor_icon && client.keys_held["Shift"]) //mouse shit is hardcoded, make this non hard-coded once we make mouse modifiers bindable
+	//	client.mouse_pointer_icon = examine_cursor_icon
 	if(istype(loc, /obj/vehicle/sealed))
 		var/obj/vehicle/sealed/E = loc
 		if(E.mouse_pointer)
@@ -1400,3 +1400,35 @@
 
 	data["memories"] = memories
 	return data
+
+
+//Updates your mouse icon based on how much recoil there is when you're holding a gun.
+/mob/proc/update_aim_icon()
+	if(!client)
+		return
+
+	var/obj/item/gun/G = get_active_held_item()
+
+	if(istype(G))
+		if(dispersion_mouse_display_number < 2)
+			client.mouse_override_icon = 'mojave/icons/effects/mouse_pointers/weapon_pointer.dmi'
+		else if(dispersion_mouse_display_number >= 2 && dispersion_mouse_display_number < 4)
+			client.mouse_override_icon = 'mojave/icons/effects/mouse_pointers/weapon_pointer_auto.dmi'
+		else if(dispersion_mouse_display_number >= 4)
+			client.mouse_override_icon = 'mojave/icons/effects/mouse_pointers/weapon_pointer_fuck.dmi'
+		else
+			client.mouse_override_icon = 'mojave/icons/effects/mouse_pointers/weapon_pointer.dmi'
+		client.mouse_pointer_icon = client.mouse_override_icon
+		if(dispersion_mouse_display_number > 20)
+			dispersion_mouse_display_number = 20
+			recoil = 20
+		if(dispersion_mouse_display_number <= 0)
+			dispersion_mouse_display_number = 0
+			recoil = 0
+		dispersion_mouse_display_number -= 5
+
+		if(dispersion_mouse_display_number <= 0)
+			dispersion_mouse_display_number = 0
+	else
+		client.mouse_override_icon = null
+		client.mouse_pointer_icon = client.mouse_override_icon

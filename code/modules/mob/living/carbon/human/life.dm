@@ -29,6 +29,8 @@
 	//Body temperature stability and damage
 	dna.species.handle_body_temperature(src, delta_time, times_fired)
 
+	update_aim_icon()
+
 	if(!IS_IN_STASIS(src))
 		if(.) //not dead
 
