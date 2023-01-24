@@ -84,6 +84,7 @@
 	spread = 6
 	grid_width = 64
 	grid_height = 32
+	wield_info = /datum/wield_info/default
 
 /obj/item/gun/ballistic/revolver/ms13/derringer/trimmed
 	name = "gold trimmed derringer"
@@ -105,6 +106,7 @@
 	slowdown = 0.5
 	grid_width = 64
 	grid_height = 64
+	wield_info = /datum/wield_info/default
 
 /obj/item/gun/ballistic/revolver/ms13/rev44/mysterious
 	name = "\improper Mysterious Magnum"
@@ -127,6 +129,7 @@
 	slowdown = 0.5
 	grid_width = 64
 	grid_height = 64
+	wield_info = /datum/wield_info/default
 
 /obj/item/gun/ballistic/revolver/ms13/rev357/lucky
 	name = "\improper Lucky"
@@ -178,6 +181,7 @@
 	slowdown = 0.5
 	grid_width = 64
 	grid_height = 64
+	wield_info = /datum/wield_info/default
 
 /obj/item/gun/ballistic/revolver/ms13/huntingrev/sequoia
 	name = "\improper Sequoia"

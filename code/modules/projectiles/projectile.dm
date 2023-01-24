@@ -72,7 +72,7 @@
 	/// If objects are below this layer, we pass through them
 	var/hit_threshhold = PROJECTILE_HIT_THRESHHOLD_LAYER
 
-	var/speed = 0.8 //Amount of deciseconds it takes for projectile to travel
+	var/speed = 0.5 //Amount of deciseconds it takes for projectile to travel
 	var/Angle = 0
 	var/original_angle = 0 //Angle at firing
 	var/nondirectional_sprite = FALSE //Set TRUE to prevent projectiles from having their sprites rotated based on firing angle

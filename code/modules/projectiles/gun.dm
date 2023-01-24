@@ -19,7 +19,7 @@
 	force = 5
 	//MOJAVE EDIT CHANGE BEGIN
 	//ORIGINAL IS item_flags = NEEDS_PERMIT
-	item_flags = NEEDS_PERMIT | SLOWS_WHILE_IN_HAND
+	//item_flags = NEEDS_PERMIT | SLOWS_WHILE_IN_HAND
 	//MOJAVE EDIT CHANGE END
 	attack_verb_continuous = list("strikes", "hits", "bashes")
 	attack_verb_simple = list("strike", "hit", "bash")
@@ -79,7 +79,7 @@
 	var/flight_x_offset = 0
 	var/flight_y_offset = 0
 	var/pb_knockback = 0
-	var/disp_buildup = 1.5
+	var/disp_buildup = 1.2
 
 /obj/item/gun/Initialize(mapload)
 	. = ..()
@@ -261,8 +261,9 @@
 	// MOJAVE EDIT BEGIN
 	var/datum/component/two_handed/two_handed = GetComponent(/datum/component/two_handed)
 	if(weapon_weight == WEAPON_HEAVY && !(two_handed?.wielded))
-		to_chat(user, span_warning("You need to wield [src] with two hands!"))
-		return
+		bonus_spread += 2
+	//	to_chat(user, span_warning("You need to wield [src] with two hands!"))
+	//	return
 	// MOJAVE EDIT END
 	//DUAL (or more!) WIELDING
 	var/bonus_spread = 0

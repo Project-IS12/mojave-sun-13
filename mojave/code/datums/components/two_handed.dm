@@ -15,9 +15,9 @@
 	//Consider adding base inhand state, because this SUCKS!
 	if(wield_flags & WIELD_HAS_INHANDS)
 		if(wielded)
-			source.inhand_icon_state = "[initial(source.inhand_icon_state)]_wielded"
+			source.inhand_icon_state = "[initial(source.inhand_icon_state)]"
 		else
-			source.inhand_icon_state = initial(source.inhand_icon_state)
+			source.inhand_icon_state = "[initial(source.inhand_icon_state)]_onehand"
 	if(icon_wielded && wielded)
 		source.icon_state = icon_wielded
 		return COMSIG_ATOM_NO_UPDATE_ICON_STATE

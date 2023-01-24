@@ -1,4 +1,7 @@
 //Guns
+/obj/item/gun/ballistic/automatic/pistol/ms13
+	wield_info = /datum/wield_info/default //No inhands for these.
+
 /obj/item/gun/ballistic/automatic/pistol/ms13/m10mm
 	name = "police 10mm pistol"
 	desc = "A pre-war 10mm pistol normally seen in the hands of law enforcement."
