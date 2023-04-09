@@ -8,7 +8,6 @@
 /atom/movable/screen/human/toggle/Click()
 
 	var/mob/targetmob = usr
-
 	if(isobserver(usr))
 		if(ishuman(usr.client.eye) && (usr.client.eye != usr))
 			var/mob/M = usr.client.eye
@@ -22,6 +21,7 @@
 		usr.client.screen += targetmob.hud_used.toggleable_inventory
 
 	targetmob.hud_used.hidden_inventory_update(usr)
+	SEND_SOUND(usr, 'mojave/sound/ms13effects/clickL.ogg')
 
 /atom/movable/screen/human/equip
 	name = "equip"

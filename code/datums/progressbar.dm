@@ -38,7 +38,11 @@
 		return
 	goal = goal_number
 	bar_loc = target
+	//MOJAVE EDIT BEGIN
 	bar = image('icons/effects/progessbar.dmi', bar_loc, "prog_bar_0")
+	bar.color = "#27c400"
+	bar.filters += filter(type = "drop_shadow", size = 1, color = "#000000", x = 1, y = -1, offset = 1)
+	//MOJAVE EDIT END
 	bar.plane = ABOVE_HUD_PLANE
 	bar.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 	user = User
@@ -132,7 +136,7 @@
 	if(progress == last_progress)
 		return
 	last_progress = progress
-	bar.icon_state = "prog_bar_[round(((progress / goal) * 100), 5)]"
+	bar.icon_state = "progress-[FLOOR(((progress / goal) * 16), 1)]"
 
 //MOJAVE SUN EDIT START - Interactive Progressbar
 /datum/progressbar/proc/boost_progress(amount)
@@ -143,7 +147,7 @@
 /datum/progressbar/proc/end_progress()
 	//MOJAVE SUN EDIT START - Interactive Progressbar
 	if(last_progress < goal)
-		bar.icon_state = "[bar.icon_state]_fail"
+		bar.color = "#ff0000"
 	if(booster)
 		QDEL_NULL(booster)
 	//MOJAVE SUN EDIT END - Interactive Progressbar

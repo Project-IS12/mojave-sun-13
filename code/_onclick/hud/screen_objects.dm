@@ -390,6 +390,7 @@
 /atom/movable/screen/mov_intent/proc/toggle(mob/user)
 	if(isobserver(user))
 		return
+	SEND_SOUND(user, 'mojave/sound/ms13effects/clickL.ogg')
 	user.toggle_move_intent(user)
 
 /atom/movable/screen/pull
@@ -429,6 +430,7 @@
 	if(isliving(usr))
 		var/mob/living/L = usr
 		L.toggle_resting()
+		SEND_SOUND(L, 'mojave/sound/ms13effects/clickL.ogg')
 
 /atom/movable/screen/rest/update_icon_state()
 	var/mob/living/user = hud?.mymob
@@ -482,6 +484,7 @@
 	if(iscarbon(usr))
 		var/mob/living/carbon/C = usr
 		C.toggle_throw_mode()
+		SEND_SOUND(C, 'mojave/sound/ms13effects/clickL.ogg')
 
 /atom/movable/screen/zone_sel
 	name = "damage zone"
@@ -719,7 +722,7 @@
 
 /atom/movable/screen/mood
 	name = "mood"
-	icon_state = "mood5"
+	icon_state = ""//"mood5"
 	screen_loc = ui_mood
 	icon = 'mojave/icons/hud/ms_ui_health.dmi' // MS Health doll
 

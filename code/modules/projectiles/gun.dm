@@ -159,19 +159,19 @@
 	return TRUE
 
 /obj/item/gun/proc/shoot_with_empty_chamber(mob/living/user as mob|obj)
-	to_chat(user, span_danger("[user] pulls the trigger of [src], but it doesn't go off!"))// MOJAVE SUN EDIT - Original is to_chat(user, span_danger("*click*"))
+	to_chat(user, span_danger("[user] pulls the trigger of [src], but it doesn't go off! It's empty!"))// MOJAVE SUN EDIT - Original is to_chat(user, span_danger("*click*"))
 	playsound(src, dry_fire_sound, 5, TRUE) // MOJAVE SUN EDIT - ORIGINAL SOUND VALUE IS 30
 
 
 /obj/item/gun/proc/shoot_live_shot(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
 	//MOJAVE EDIT CHANGE BEGIN - GUN_RECOIL
-	//if(recoil) - Original
-	//	shake_camera(user, recoil + 1, recoil) - Original
-	var/angle = get_angle(user, pbtarget)+rand(-recoil_deviation, recoil_deviation) + 180
-	if(angle > 360)
-		angle -= 360
-	if(recoil)
-		recoil_camera(user, recoil+1, (recoil*recoil_backtime_multiplier) + 1, recoil, angle)
+	if(recoil) // - Original
+		shake_camera(user, recoil+1, recoil)
+	//var/angle = get_angle(user, pbtarget)+rand(-recoil_deviation, recoil_deviation) + 180
+	//if(angle > 360)
+	//	angle -= 360
+	//if(recoil)
+	//	recoil_camera(user, recoil+1, (recoil*recoil_backtime_multiplier) + 1, recoil, angle)
 	//MOJAVE EDIT CHANGE END
 
 	if(suppressed)
@@ -258,6 +258,7 @@
 		to_chat(user, span_warning("You need two hands to fire [src]!"))
 		return
 	*/
+	var/bonus_spread = 0
 	// MOJAVE EDIT BEGIN
 	var/datum/component/two_handed/two_handed = GetComponent(/datum/component/two_handed)
 	if(weapon_weight == WEAPON_HEAVY && !(two_handed?.wielded))
@@ -266,7 +267,6 @@
 	//	return
 	// MOJAVE EDIT END
 	//DUAL (or more!) WIELDING
-	var/bonus_spread = 0
 	var/loop_counter = 0
 	if(ishuman(user) && user.combat_mode)
 		var/mob/living/carbon/human/H = user
@@ -419,15 +419,13 @@
 		if(user.recoil <= 0)
 			user.recoil = 0
 		user.dispersion_mouse_display_number = abs(sprd)
-		to_chat(world, "[user.dispersion_mouse_display_number]") //Debug.
+		//to_chat(world, "[user.dispersion_mouse_display_number]") //Debug.
 		if(user.client)
-			if(user.dispersion_mouse_display_number < 4)
+			if(user.dispersion_mouse_display_number < 2)
 				user.client.mouse_override_icon = 'mojave/icons/effects/mouse_pointers/weapon_pointer.dmi'
-			else if(user.dispersion_mouse_display_number >= 4 && user.dispersion_mouse_display_number < 8)
+			else if(user.dispersion_mouse_display_number >= 2 && user.dispersion_mouse_display_number < 4)
 				user.client.mouse_override_icon = 'mojave/icons/effects/mouse_pointers/weapon_pointer_auto.dmi'
-			else if(user.dispersion_mouse_display_number >= 8 && user.dispersion_mouse_display_number < 10)
-				user.client.mouse_override_icon = 'mojave/icons/effects/mouse_pointers/weapon_pointer_auto.dmi'
-			else if(user.dispersion_mouse_display_number >= 10)
+			else if(user.dispersion_mouse_display_number >= 4)
 				user.client.mouse_override_icon = 'mojave/icons/effects/mouse_pointers/weapon_pointer_fuck.dmi'
 			else
 				user.client.mouse_override_icon = 'mojave/icons/effects/mouse_pointers/weapon_pointer.dmi'
@@ -563,12 +561,19 @@
 		return clear_bayonet()
 	else if(item_to_remove == gun_light)
 		return clear_gunlight()
+
 /obj/item/gun/equipped(mob/user, slot)
 	. = ..()
 	if(slot == ITEM_SLOT_HANDS)
 		if(user.client)
 			user.client.mouse_override_icon = 'mojave/icons/effects/mouse_pointers/weapon_pointer.dmi'
 			user.client.mouse_pointer_icon = user.client.mouse_override_icon
+	else
+		user.update_aim_icon()
+
+/obj/item/gun/dropped(mob/user)
+	..()
+	user.update_aim_icon()
 
 /mob/living/carbon/human/swap_hand()
 	..()
