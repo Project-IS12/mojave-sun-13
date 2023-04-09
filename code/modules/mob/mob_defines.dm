@@ -247,3 +247,5 @@
 	//Used for guns.
 	var/recoil = 0
 	var/dispersion_mouse_display_number = 0
+	/// Keeps track of time of death for respawn purposes on the base mob
+	var/respawn_timeofdeath = 0
