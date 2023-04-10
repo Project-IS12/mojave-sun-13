@@ -302,7 +302,7 @@
 	if(bolt_type == BOLT_TYPE_OPEN)
 		chambered = null
 	if (magazine.ammo_count())
-		playsound(src, load_sound, load_sound_volume, load_sound_vary)
+		playsound(src, eject_sound, load_sound_volume, load_sound_vary)
 	else
 		playsound(src, load_empty_sound, load_sound_volume, load_sound_vary)
 	magazine.forceMove(drop_location())

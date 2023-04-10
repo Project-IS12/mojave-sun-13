@@ -15,6 +15,7 @@
 	throw_speed = 3
 	throw_range = 7
 	override_notes = TRUE
+	var/load_sound = 'sound/weapons/gun/general/mag_bullet_insert.ogg'
 	///list containing the actual ammo within the magazine
 	var/list/stored_ammo = list()
 	///type that the magazine will be searching for, rejects if not a subtype of
@@ -150,7 +151,7 @@
 	if(num_loaded)
 		if(!silent)
 			to_chat(user, span_notice("You load [num_loaded] shell\s into \the [src]!"))
-			playsound(src, 'sound/weapons/gun/general/mag_bullet_insert.ogg', 60, TRUE)
+			playsound(src, load_sound, 60, TRUE)
 		update_ammo_count()
 
 	return num_loaded
@@ -163,7 +164,7 @@
 	A.forceMove(drop_location())
 	if(!user.is_holding(src) || !user.put_in_hands(A)) //incase they're using TK
 		A.bounce_away(FALSE, NONE)
-	playsound(src, 'sound/weapons/gun/general/mag_bullet_insert.ogg', 60, TRUE)
+	playsound(src, 'mojave/sound/ms13weapons/effects/bulletout_mag.ogg', 60, TRUE)
 	to_chat(user, span_notice("You remove a round from [src]!"))
 	update_ammo_count()
 
@@ -220,3 +221,6 @@
 /obj/item/ammo_box/magazine/handle_atom_del(atom/A)
 	stored_ammo -= A
 	update_ammo_count()
+
+/obj/item/ammo_box/magazine
+	load_sound = 'mojave/sound/ms13weapons/effects/bulletin_mag.wav'

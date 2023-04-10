@@ -23,6 +23,9 @@
 	//MOJAVE EDIT CHANGE END
 	attack_verb_continuous = list("strikes", "hits", "bashes")
 	attack_verb_simple = list("strike", "hit", "bash")
+	drop_sound = 'sound/items/handling/gun_drop.ogg'
+	pickup_sound = "gun_pickup"
+	equip_sound = 'sound/items/equip/gun_equip.ogg'
 
 	var/gun_flags = NONE
 	var/fire_sound = 'sound/weapons/gun/pistol/shot.ogg'

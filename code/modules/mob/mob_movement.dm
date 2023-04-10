@@ -165,7 +165,7 @@
 		SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_MOVED, src, direct, new_loc, old_loc, add_delay)
 
 	var/atom/movable/P = mob.pulling
-	if(P && !ismob(P) && P.density)
+	if(P && P.density || ismob(P) && P.loc != mob.loc)//Don't turn us around if they're on the same tile as us please.
 		mob.setDir(turn(mob.dir, 180))
 
 /**

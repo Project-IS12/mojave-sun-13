@@ -420,8 +420,12 @@
 
 ///The base proc of when something is right clicked on when alt is held
 /atom/proc/alt_click_secondary(mob/user)
-	if(!can_interact(user))
-		return FALSE
+	user.face_atom(src)
+	if(isliving(user))
+		var/mob/living/M = user
+		M.do_zoom()
+	//if(!can_interact(user))
+	//	return FALSE
 	if(SEND_SIGNAL(src, COMSIG_CLICK_ALT_SECONDARY, user) & COMPONENT_CANCEL_CLICK_ALT_SECONDARY)
 		return
 	if(isobserver(user) && user.client && check_rights_for(user.client, R_DEBUG))

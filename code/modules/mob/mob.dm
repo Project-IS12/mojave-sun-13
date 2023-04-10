@@ -1436,3 +1436,70 @@
 	else
 		client.mouse_override_icon = null
 		client.mouse_pointer_icon = client.mouse_override_icon
+
+/mob
+	var/zoomed = FALSE
+
+/mob/living/proc/do_zoom()
+	var/do_normal_zoom = TRUE
+	if(!zoomed)
+		if(body_position == LYING_DOWN)
+			return
+		visible_message("[src] peers into the distance")
+		/*
+		var/obj/item/gun/projectile/heavysniper/S = get_active_hand()
+		if(istype(S))
+			do_normal_zoom = FALSE
+			S.toggle_scope(src, 2)
+			set_face_dir(dir)//Face what we're zoomed in on.
+		*/
+		if(do_normal_zoom)
+			var/_x = 0
+			var/_y = 0
+			var/x_amount = 7
+			if(client.prefs.read_preference(/datum/preference/toggle/widescreen) == TRUE)
+				x_amount = 9
+			switch(dir)
+				if (NORTH)
+					_y = 7
+				if (EAST)
+					_x = x_amount
+				if (SOUTH)
+					_y = -7
+				if (WEST)
+					_x = -x_amount
+			var/datum/component/fov_handler/fov_component = GetComponent(/datum/component/fov_handler)
+			if(fov_component)
+				fov_component.remove_mask()
+			animate(client, pixel_x = world.icon_size*_x, pixel_y = world.icon_size*_y, time = 2, easing = SINE_EASING)
+			client.zoomed_x = client.pixel_x
+			client.zoomed_y = client.pixel_y
+			SEND_SIGNAL(src, COMSIG_FIXEYE_ENABLE)
+
+		zoomed = TRUE
+
+
+	else
+		/*
+		var/obj/item/gun/projectile/heavysniper/S = get_active_hand()
+		if(istype(S))
+			if(S.zoom)//Only do this if we're zoomed in please.
+				do_normal_zoom = FALSE
+				S.toggle_scope(src, 2)
+				set_face_dir(FALSE)//Reset us back to normal.
+		S = get_inactive_hand()//Then check if it's in our inactive hand instead. That way you can swap hands and still unzoom normally.
+		if(istype(S))
+			if(S.zoom)
+				do_normal_zoom = FALSE
+				S.toggle_scope(src, 2)
+				set_face_dir(FALSE)//Reset us back to normal.
+		*/
+		if(do_normal_zoom)
+			animate(client, pixel_x = 0, pixel_y = 0, time = 2, easing = SINE_EASING)
+			spawn(1)
+				var/datum/component/fov_handler/fov_component = GetComponent(/datum/component/fov_handler)
+				if(fov_component)
+					fov_component.add_mask()
+
+			SEND_SIGNAL(src, COMSIG_FIXEYE_DISABLE)
+		zoomed = FALSE

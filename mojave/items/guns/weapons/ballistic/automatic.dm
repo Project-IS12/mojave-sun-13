@@ -15,6 +15,11 @@
 	mag_type = /obj/item/ammo_box/magazine/ms13/r20
 	grid_width = 192
 	grid_height = 64
+	load_sound = 'mojave/sound/ms13weapons/effects/m16_magin.ogg'
+	load_empty_sound = 'mojave/sound/ms13weapons/effects/m16_magin.ogg'
+	rack_sound = 'mojave/sound/ms13weapons/effects/m16_chargeback.ogg'
+	eject_sound = 'mojave/sound/ms13weapons/effects/m16_magout.ogg'
+	eject_empty_sound = 'mojave/sound/ms13weapons/effects/m16_magout.ogg'
 
 /obj/item/gun/ballistic/automatic/ms13/semi/service/maquis
 	name = "\improper Maquis"
@@ -225,6 +230,11 @@
 	slowdown = 0.75
 	grid_width = 192
 	grid_height = 64
+	load_sound = 'mojave/sound/ms13weapons/effects/arifle_magin.wav'
+	load_empty_sound = 'mojave/sound/ms13weapons/effects/arifle_magin.wav'
+	rack_sound = 'mojave/sound/ms13weapons/effects/arifle_boltback.wav'
+	eject_sound = 'mojave/sound/ms13weapons/effects/arifle_magout.ogg'
+	eject_empty_sound = 'mojave/sound/ms13weapons/effects/arifle_magout.ogg'
 
 /obj/item/gun/ballistic/automatic/ms13/full/assaultrifle/proto_service
 	name = "prototype service rifle"
@@ -281,6 +291,11 @@
 	slowdown = 0.75
 	grid_width = 192
 	grid_height = 64
+	load_sound = 'mojave/sound/ms13weapons/effects/fnfal_magin.ogg'
+	load_empty_sound = 'mojave/sound/ms13weapons/effects/fnfal_magin.ogg'
+	rack_sound = 'mojave/sound/ms13weapons/effects/fnfal_cock.ogg'
+	eject_sound = 'mojave/sound/ms13weapons/effects/fnfal_magout.ogg'
+	eject_empty_sound = 'mojave/sound/ms13weapons/effects/fnfal_magout.ogg'
 
 /obj/item/gun/ballistic/automatic/ms13/full/assaultrifle/chinese/handmade
 	name = "handmade assault rifle"

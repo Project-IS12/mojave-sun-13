@@ -184,7 +184,7 @@
 	log_pickup_and_drop = TRUE
 	slowdown = 0.75 //A fall back in case someone forgets to define slowdown at the gun level
 
-/obj/item/gun/ballistic/automatic/ms13/full/Initialize()
+/obj/item/gun/ballistic/automatic/ms13/full/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/automatic_fire, fire_delay)
 

@@ -1,6 +1,11 @@
 //Guns
 /obj/item/gun/ballistic/automatic/pistol/ms13
 	wield_info = /datum/wield_info/default //No inhands for these.
+	load_sound = 'mojave/sound/ms13weapons/effects/bpistol_magin.wav'
+	load_empty_sound = 'mojave/sound/ms13weapons/effects/bpistol_magin.wav'
+	bolt_drop_sound = 'mojave/sound/ms13weapons/effects/bpistol_boltback.wav'
+	eject_sound = 'mojave/sound/ms13weapons/effects/bpistol_magout.wav'
+	eject_empty_sound = 'mojave/sound/ms13weapons/effects/bpistol_magout.wav'
 
 /obj/item/gun/ballistic/automatic/pistol/ms13/m10mm
 	name = "police 10mm pistol"

@@ -220,40 +220,32 @@
 ///Shake the camera of the person viewing the mob SO REAL!
 ///Takes the mob to shake, the time span to shake for, and the amount of tiles we're allowed to shake by in tiles
 ///Duration isn't taken as a strict limit, since we don't trust our coders to not make things feel shitty. So it's more like a soft cap.
+/client
+	var/zoomed_x = 0
+	var/zoomed_y = 0
+	var/shaking = FALSE
+
 /proc/shake_camera(mob/M, duration, strength=1)
-	if(!M || !M.client || duration < 1)
+	if(!M || !M.client || M.client.shaking || duration < 1)
 		return
+	M.client.shaking = TRUE
 	var/client/C = M.client
 	var/oldx = C.pixel_x
 	var/oldy = C.pixel_y
 	var/max = strength*world.icon_size
 	var/min = -(strength*world.icon_size)
-
-	//How much time to allot for each pixel moved
-	var/time_scalar = (1 / world.icon_size) * TILES_PER_SECOND
-	var/last_x = oldx
-	var/last_y = oldy
-
-	var/time_spent = 0
-	while(time_spent < duration)
-		//Get a random pos in our box
-		var/x_pos = rand(min, max) + oldx
-		var/y_pos = rand(min, max) + oldy
-
-		//We take the smaller of our two distances so things still have the propencity to feel somewhat jerky
-		var/time = round(max(min(abs(last_x - x_pos), abs(last_y - y_pos)) * time_scalar, 1))
-
-		if (time_spent == 0)
-			animate(C, pixel_x=x_pos, pixel_y=y_pos, time=time)
+	for(var/x=0; x<duration, x++)
+		animate(C, pixel_x=rand(oldx+min,oldx+max), pixel_y=rand(oldy+min,oldy+max), time=2, easing = SINE_EASING)
+		sleep(1)
+	animate(C, pixel_x=oldx, pixel_y=oldy, time=1, easing = SINE_EASING)
+	spawn(0)
+		if(M.zoomed)
+			C.pixel_x = C.zoomed_x
+			C.pixel_y = C.zoomed_y
 		else
-			animate(pixel_x=x_pos, pixel_y=y_pos, time=time)
-
-		last_x = x_pos
-		last_y = y_pos
-		//We go based on time spent, so there is a chance we'll overshoot our duration. Don't care
-		time_spent += time
-
-	animate(pixel_x=oldx, pixel_y=oldy, time=3)
+			C.pixel_x = 0
+			C.pixel_y = 0
+	M.client.shaking = FALSE
 
 #undef TILES_PER_SECOND
 
