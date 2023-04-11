@@ -210,7 +210,7 @@
 	icon = 'mojave/icons/turf/64x/snow_1.dmi'
 	icon_state = "snow-255"
 	base_icon_state = "snow"
-	slowdown = 1
+	slowdown = 0.5
 	footstep = FOOTSTEP_SNOW
 	baseturfs = /turf/open/floor/plating/ms13/ground/snow
 	smoothing_flags = SMOOTH_BITMASK

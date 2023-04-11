@@ -134,7 +134,7 @@
 	if(!heavy_metal)
 		return
 	update_appearance()
-	SpinAnimation(10, 1)
+	//SpinAnimation(10, 1)
 	var/turf/T = get_turf(src)
 	if(still_warm && T?.bullet_sizzle)
 		addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound, src, 'sound/items/welder.ogg', 20, 1), bounce_delay) //If the turf is made of water and the shell casing is still hot, make a sizzling sound when it's ejected.
